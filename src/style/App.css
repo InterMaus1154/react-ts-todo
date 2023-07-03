@@ -46,3 +46,28 @@ body{
 .Visibility-hidden{
   display: none !important;;
 }
+
+
+
+
+.InputFields{
+  display: flex;
+  flex-direction: column;
+  font-size: 1.25em;
+  gap: .75em;
+
+}
+
+.InputFields input{
+  margin-top: .5em;
+  width: 75%;
+}
+
+.InputFields label, .InputFields input,  .InputFields select,  .InputFields textarea{
+  display: block;
+}
+
+.InputFields textarea{
+  resize: none;
+  width: 75%;
+}

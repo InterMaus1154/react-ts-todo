@@ -68,27 +68,6 @@
     margin: 0;
 }
 
-.SidepanelBox .InputFields{
-    display: flex;
-    flex-direction: column;
-    font-size: 1.25em;
-    gap: .75em;
-
-}
-
-.SidepanelBox .InputFields input{
-    margin-top: .5em;
-    width: 75%;
-}
-
-.SidepanelBox .InputFields label, .SidepanelBox .InputFields input, .SidepanelBox .InputFields select, .SidepanelBox .InputFields textarea{
-    display: block;
-}
-
-.Sidepanel .InputFields textarea{
-    resize: none;
-    width: 75%;
-}
 
 
 footer{

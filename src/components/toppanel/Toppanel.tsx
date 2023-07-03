@@ -9,6 +9,8 @@ import Button from "../shared/Button";
 import Modal from "../shared/modals/Modal";
 import { AllTodoRemovedModal, FilterModal } from "../shared/modals/ModalTypes";
 import TodoVisibilityController from "./components/TodoVisibilityController";
+import { LoginContext } from "../../login/LoginContext";
+
 
 interface IToppanel{
     isSidePanelVisible: boolean;
@@ -23,6 +25,8 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
     const [filterModalVisible, setFilterModalVisible] = useState<boolean>(false);
     const allRemovedModalRef = useRef<HTMLDivElement>(document.createElement("div"));
     const filterModalRef = useRef<HTMLDivElement>(document.createElement("div"));
+
+    const {userLoggedIn, setUserLoggedIn} = useContext(LoginContext);
 
     const onDeleteItems = () : void =>{
         setTodoItems([]);
@@ -57,6 +61,10 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
         setFilterModalVisible(true);
     }
 
+    const handleLogOut = () : void =>{
+        setUserLoggedIn(false);
+    }
+
     return(
         <div className="Toppanel">
             <Button classes={"Sidemenu-button"} text="Sidemenu" onClick={toggleSidepanel}/>
@@ -70,6 +78,7 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
             <Button text={"Save to server"} onClick={()=>alert("Not available...")}></Button>
             <TodoVisibilityController/>
             <Button text={"Filter"} classes="Filter-button" onClick={openFilter}></Button>
+            <Button text={"Log out"} onClick={handleLogOut}/>
             <Modal title="All item has been removed!" visible={allRemovedModalVisible} setVisible={setAllRemovedModalVisible} modalContent={<AllTodoRemovedModal/>} innerRef={allRemovedModalRef}/>
             <Modal title="" visible={filterModalVisible} setVisible={setFilterModalVisible} modalContent={<FilterModal />} innerRef={filterModalRef}/>
         </div>

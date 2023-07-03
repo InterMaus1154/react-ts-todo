@@ -1,8 +1,7 @@
-import "./style/App.css";
-import "./style/theme.css";
-import "./style/font/_font.css";
+
 
 import {FC, useState, useEffect} from 'react';
+
 
 import { ThemeContext, ThemeTypes } from "./context/ThemeContext";
 import Sidepanel from "./components/sidepanel/Sidepanel";

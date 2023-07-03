@@ -1,0 +1,16 @@
+
+#root{
+    background-color: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 12px;
+}
+
+.Gate-panel{
+    background-color: #c8c8c8;
+    padding: 32px;
+    border-radius: 8px;
+}
+
