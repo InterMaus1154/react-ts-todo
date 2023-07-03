@@ -70,7 +70,6 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
             <Button text={"Save to server"} onClick={()=>alert("Not available...")}></Button>
             <TodoVisibilityController/>
             <Button text={"Filter"} classes="Filter-button" onClick={openFilter}></Button>
-            <Button text="Button on test branch" onClick={()=>{alert("You are on test branch!")}} />
             <Modal title="All item has been removed!" visible={allRemovedModalVisible} setVisible={setAllRemovedModalVisible} modalContent={<AllTodoRemovedModal/>} innerRef={allRemovedModalRef}/>
             <Modal title="" visible={filterModalVisible} setVisible={setFilterModalVisible} modalContent={<FilterModal />} innerRef={filterModalRef}/>
         </div>
