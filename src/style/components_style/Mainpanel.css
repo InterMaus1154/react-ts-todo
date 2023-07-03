@@ -69,3 +69,52 @@
 .On-delete{
     background-color: red;
 }
+
+
+.Crossed-item{
+    position: relative;    
+}
+
+.Crossed-item:after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--line-color);
+    animation-name: strike;
+    animation-duration: .2s;
+    animation-timing-function:linear;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes strike{
+    0%{width: 0;}
+    100%{width: 100%}
+}
+
+.Uncrossed-item{
+    position: relative;
+}
+
+.Uncrossed-item:after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--line-color);
+    animation-name: unstrike;
+    animation-duration: .2s;
+    animation-timing-function:linear;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes unstrike{
+    0%{width: 100%;}
+    100%{width: 0}
+}

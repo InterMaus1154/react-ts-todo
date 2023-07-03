@@ -7,7 +7,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { TodoContext } from "../../context/TodoContext";
 import Button from "../shared/Button";
 import Modal from "../shared/modals/Modal";
-import { AllTodoRemovedModal } from "../shared/modals/ModalTypes";
+import { AllTodoRemovedModal, FilterModal } from "../shared/modals/ModalTypes";
 import TodoVisibilityController from "./components/TodoVisibilityController";
 
 interface IToppanel{
@@ -19,19 +19,25 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
 
     const {theme, toggleTheme} = useContext(ThemeContext);
     const {setTodoItems} = useContext(TodoContext);
-    const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const modalRef = useRef<HTMLDivElement>(document.createElement("div"));
+    const [allRemovedModalVisible, setAllRemovedModalVisible] = useState<boolean>(false);
+    const [filterModalVisible, setFilterModalVisible] = useState<boolean>(false);
+    const allRemovedModalRef = useRef<HTMLDivElement>(document.createElement("div"));
+    const filterModalRef = useRef<HTMLDivElement>(document.createElement("div"));
 
     const onDeleteItems = () : void =>{
         setTodoItems([]);
-        setModalVisible(true);
+        setAllRemovedModalVisible(true);
     };
 
     useEffect(()=>{
 
         const handleClick = (e: any) : void =>{
-            if(modalVisible && modalRef.current != null && !modalRef.current.contains(e.target)){
-                setModalVisible(false);
+            if(allRemovedModalVisible && allRemovedModalRef.current != null && !allRemovedModalRef.current.contains(e.target)){
+                setAllRemovedModalVisible(false);
+            }
+
+            if(filterModalVisible && filterModalRef.current != null && !filterModalRef.current.contains(e.target)){
+                setFilterModalVisible(false);
             }
         };
 
@@ -41,10 +47,14 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
             document.removeEventListener("mousedown", handleClick);
         }
 
-    }, [modalVisible]);
+    }, [allRemovedModalVisible, filterModalVisible]);
 
     const toggleSidepanel = () : void =>{
         setSidePanelVisible(!isSidePanelVisible);
+    }
+
+    const openFilter = () : void =>{
+        setFilterModalVisible(true);
     }
 
     return(
@@ -59,7 +69,9 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
             <Button text={"Clear all todo"} onClick={onDeleteItems}></Button>
             <Button text={"Save to server"} onClick={()=>alert("Not available...")}></Button>
             <TodoVisibilityController/>
-            <Modal title="All item has been removed!" visible={modalVisible} setVisible={setModalVisible} modalContent={<AllTodoRemovedModal/>} innerRef={modalRef}/>
+            <Button text={"Filter"} classes="Filter-button" onClick={openFilter}></Button>
+            <Modal title="All item has been removed!" visible={allRemovedModalVisible} setVisible={setAllRemovedModalVisible} modalContent={<AllTodoRemovedModal/>} innerRef={allRemovedModalRef}/>
+            <Modal title="" visible={filterModalVisible} setVisible={setFilterModalVisible} modalContent={<FilterModal />} innerRef={filterModalRef}/>
         </div>
     )
 

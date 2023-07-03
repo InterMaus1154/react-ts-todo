@@ -43,4 +43,8 @@
     .Sidemenu-button{
         display: none;
     }
+
+    .Filter-button{
+        display: none;
+    }
 }

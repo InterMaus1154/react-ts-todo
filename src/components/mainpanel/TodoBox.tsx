@@ -42,7 +42,7 @@ const TodoBox : FC<ITodoBox> = ({todoItem, idx}) =>{
 
     return(
         <div className={"Todo-item-box"}>
-            <h2 style={isCompleted ? {textDecoration: "line-through" } : {}} className="Todo-name">{todoItem.name}
+            <h2 className="Todo-name"><span className={isCompleted ? "Crossed-item" : "Uncrossed-item"} style={{"--line-color": todoItem.importance.accentColor} as React.CSSProperties}>{todoItem.name}</span>
                 <div className="Todo-importance" style={{backgroundColor: todoItem.importance.accentColor}}></div>
             </h2>
             

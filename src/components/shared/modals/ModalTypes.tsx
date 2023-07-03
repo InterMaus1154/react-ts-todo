@@ -5,6 +5,7 @@ import { CategoryContext } from '../../../context/CategoryContext';
 import Button from '../Button';
 import { generateKey } from '../../../util/Key';
 import { ICategory } from '../../../util/Category';
+import FilterBox from '../../sidepanel/components/FilterBox';
 
 export const ItemAddedModal : FC = ()=>{
 
@@ -87,3 +88,12 @@ export const ManageCategoriesModal :FC = () =>{
         </div>
     );
 };
+
+
+export const FilterModal : FC = ()=>{
+    return(
+        <div className="Modal-content">
+            <FilterBox />
+        </div>
+    )
+}

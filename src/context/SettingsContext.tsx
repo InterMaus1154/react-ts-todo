@@ -38,7 +38,7 @@ const SettingsProvider : FC<ISettingsProvider> = ({children}) =>{
 
     let defSets : Partial<ISettings> = {};
     if(window.localStorage.getItem("tsx-todo-settings")){
-        if(JSON.parse(window.localStorage.getItem("tsx-todo-settings") as string).version != DefaultSettings.version){
+        if(JSON.parse(window.localStorage.getItem("tsx-todo-settings") as string).version !== DefaultSettings.version){
             defSets = DefaultSettings;
         }else{
             defSets = JSON.parse(window.localStorage.getItem("tsx-todo-settings") as string);
