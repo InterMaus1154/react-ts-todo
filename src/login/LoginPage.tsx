@@ -4,16 +4,17 @@ import { LoginContext } from './LoginContext';
 
 
 
-const LoginPage : FC = () =>{
+const LoginPage : FC<{isRegisterVisible : boolean, setIsRegisterVisible : React.Dispatch<React.SetStateAction<boolean>>}> = ({isRegisterVisible, setIsRegisterVisible}) =>{
 
     const {userLoggedIn, setUserLoggedIn} = useContext(LoginContext);
 
-    const handleLogin = () : void => {
+    const handleLogin = (event: React.FormEvent<HTMLFormElement>, isGuest?: boolean) : void => {
+        event.preventDefault();
         setUserLoggedIn(true);
     }
 
     return(
-        <div className="Login-page">
+        <div className={isRegisterVisible ? "Visibility-hidden" : "Login-page"}>
             <form className="InputFields" onSubmit={handleLogin}>
                 <label>Username
                     <input type="text" placeholder="Username" required/>
@@ -21,7 +22,10 @@ const LoginPage : FC = () =>{
 
                 <Button text="Login" />
             </form>
-            
+            <form className="InputFields ButtonDivision" onSubmit={(e)=>{e.preventDefault()}}>
+                <Button text="Login as Guest" onClick={handleLogin as React.FormEventHandler}/>
+                <Button text="Register" onClick={()=>{setIsRegisterVisible(true)}}/>
+            </form>
             
         </div>
     );
