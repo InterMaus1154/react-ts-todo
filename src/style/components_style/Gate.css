@@ -1,11 +1,6 @@
 
 #root{
     background-color: #F5F5F5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-
 }
 
 .Gate-panel{
@@ -15,8 +10,6 @@
     margin: 12px;
 }
 
-
-
 .InputFields.ButtonDivision{
     flex-direction: row;
     gap: 0;
@@ -25,4 +18,15 @@
 
 .InputFields.ButtonDivision button{
     flex-basis: 50%;
+}
+
+.App-wrapper{
+    height: 100%;
+}
+
+.Gate-wrapper{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

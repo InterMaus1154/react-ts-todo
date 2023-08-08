@@ -1,8 +1,10 @@
 
 
-import React, {createContext, useState, FC, useEffect} from 'react';
+import React, {createContext, useState, FC, useEffect, useContext} from 'react';
 
 import { ITodo } from '../util/Todo';
+import { LoginContext } from '../login/LoginContext';
+import { GUEST_USER } from '../util/User';
 
 interface ITodoContext{
     todoItems: ITodo[];
@@ -17,10 +19,16 @@ interface ITodoProvider{
 }
 
 const TodoProvider : FC<ITodoProvider> = ({children}) =>{
-    const [todoItems, setTodoItems] = useState<ITodo[]>(window.localStorage.getItem("tsx-todo-todo-items") ? JSON.parse(window.localStorage.getItem("tsx-todo-todo-items") as string) : []);
+
+    const {setUserItems,user} = useContext(LoginContext);
+
+    const [todoItems, setTodoItems] = useState<ITodo[]>(user.userTodoItems);
 
     useEffect(()=>{
-        window.localStorage.setItem("tsx-todo-todo-items", JSON.stringify(todoItems));
+        setUserItems(todoItems);
+        if(user.username === GUEST_USER.username){
+           // window.localStorage.setItem("tsx-todo-items", JSON.stringify(todoItems));
+        }
     }, [todoItems]);
 
     return(

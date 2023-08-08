@@ -99,7 +99,7 @@ const AddTodoBox : FC = () =>{
     const fillInput = () :void =>{
         setItemName("Test todo item");
         setItemDescription("This is a test todo item");
-        dateRef.current.value="2023-07-12";
+        dateRef.current.value="2099-09-29";
         setItemDate(dateRef.current.value);
         setAllDay(false);
         setItemTime("12:23");

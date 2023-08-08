@@ -12,7 +12,7 @@ const StatusDependentPanel : FC = ()=>{
     return(
         <>
         {
-            userLoggedIn ? <App /> : <GatePanel/>
+            userLoggedIn ? <div className="App-wrapper"><App /></div> : <div className="Gate-wrapper"><GatePanel/></div>
         }
         </>
     )
