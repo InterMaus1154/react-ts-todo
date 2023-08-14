@@ -51,7 +51,6 @@ export const AllTodoRemovedModal :FC = () =>{
 
 export const ManageCategoriesModal :FC = () =>{
 
-
     const [catName, setCatName] = useState<string>("");
     const {categories, setCategories} = useContext(CategoryContext);
 
@@ -96,4 +95,12 @@ export const FilterModal : FC = ()=>{
             <FilterBox />
         </div>
     )
+}
+
+export const SettingsModal : FC = ()=>{
+    return(
+        <div className="ModalContent">
+            
+        </div>
+    );
 }

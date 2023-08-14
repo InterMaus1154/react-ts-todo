@@ -30,9 +30,7 @@
 }
 
 .Todo-visibility-controller{
-    display: flex;
-    gap: 12px;
-    align-items: center;
+    display: none;
 }
 
 .Page-counter{
@@ -47,4 +45,11 @@
     .Filter-button{
         display: none;
     }
+
+    .Todo-visibility-controller{
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+    
 }

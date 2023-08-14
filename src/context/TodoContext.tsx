@@ -27,7 +27,7 @@ const TodoProvider : FC<ITodoProvider> = ({children}) =>{
     useEffect(()=>{
         setUserItems(todoItems);
         if(user.username === GUEST_USER.username){
-           // window.localStorage.setItem("tsx-todo-items", JSON.stringify(todoItems));
+            window.localStorage.setItem("tsx-todo-items", JSON.stringify(todoItems));
         }
     }, [todoItems]);
 

@@ -1,6 +1,6 @@
 
 
-import {FC, useState, useEffect} from 'react';
+import {FC, useState, useEffect, useRef} from 'react';
 
 
 import { ThemeContext, ThemeTypes } from "./context/ThemeContext";
@@ -30,6 +30,24 @@ const App : FC = () =>{
     window.localStorage.setItem("todo-tsx-preferred-theme", theme);
   }, [theme]);
 
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  const handleWindowSizeChange = () : void =>{
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(()=>{
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () =>{
+      window.removeEventListener("resize", handleWindowSizeChange);
+    }
+  }, []);
+
+  const [isMobile, setIsMobile] = useState<boolean>(width < 1000);
+
+  useEffect(()=>{
+    setIsMobile(width < 1000);
+  }, [width]);
 
   return (
 
@@ -42,7 +60,7 @@ const App : FC = () =>{
           <main className="App" id={theme}>
             <Sidepanel isVisible={isSidepanelVisible} setVisible={setSidepanelVisible}/>
             <Toppanel isSidePanelVisible={isSidepanelVisible} setSidePanelVisible={setSidepanelVisible}/>
-            <Mainpanel />
+            <Mainpanel isMobile={isMobile}/>
           </main>
         </ThemeContext.Provider>
         </TodoSelectorProvider>

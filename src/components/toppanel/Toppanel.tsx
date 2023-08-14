@@ -7,10 +7,10 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { TodoContext } from "../../context/TodoContext";
 import Button from "../shared/Button";
 import Modal from "../shared/modals/Modal";
-import { AllTodoRemovedModal, FilterModal } from "../shared/modals/ModalTypes";
+import { AllTodoRemovedModal, FilterModal, SettingsModal } from "../shared/modals/ModalTypes";
 import TodoVisibilityController from "./components/TodoVisibilityController";
 import { LoginContext } from "../../login/LoginContext";
-
+import { GUEST_USER } from "../../util/User";
 
 interface IToppanel{
     isSidePanelVisible: boolean;
@@ -21,12 +21,16 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
 
     const {theme, toggleTheme} = useContext(ThemeContext);
     const {setTodoItems} = useContext(TodoContext);
+
     const [allRemovedModalVisible, setAllRemovedModalVisible] = useState<boolean>(false);
     const [filterModalVisible, setFilterModalVisible] = useState<boolean>(false);
+    const [settingsModalVisible, setSettingsModalVisible] = useState<boolean>(false);
+
     const allRemovedModalRef = useRef<HTMLDivElement>(document.createElement("div"));
     const filterModalRef = useRef<HTMLDivElement>(document.createElement("div"));
+    const settingsModalRef = useRef<HTMLDivElement>(document.createElement("div"));
 
-    const {userLoggedIn, setUserLoggedIn} = useContext(LoginContext);
+    const {user, setUserLoggedIn} = useContext(LoginContext);
 
     const onDeleteItems = () : void =>{
         setTodoItems([]);
@@ -43,6 +47,10 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
             if(filterModalVisible && filterModalRef.current != null && !filterModalRef.current.contains(e.target)){
                 setFilterModalVisible(false);
             }
+
+            if(settingsModalVisible && settingsModalRef.current != null && !settingsModalRef.current.contains(e.target)){
+                setSettingsModalVisible(false);
+            }
         };
 
         document.addEventListener("mousedown", handleClick);
@@ -51,7 +59,7 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
             document.removeEventListener("mousedown", handleClick);
         }
 
-    }, [allRemovedModalVisible, filterModalVisible]);
+    }, [allRemovedModalVisible, filterModalVisible, settingsModalVisible]);
 
     const toggleSidepanel = () : void =>{
         setSidePanelVisible(!isSidePanelVisible);
@@ -59,6 +67,10 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
 
     const openFilter = () : void =>{
         setFilterModalVisible(true);
+    }
+
+    const openSettingsModal = () : void =>{
+        setSettingsModalVisible(true);
     }
 
     const handleLogOut = () : void =>{
@@ -75,12 +87,14 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
             </div>
             
             <Button text={"Clear all todo"} onClick={onDeleteItems}></Button>
-            <Button text={"Save to server"} onClick={()=>alert("Not available...")}></Button>
+            {user.username !== GUEST_USER.username && <Button text={"Save to server"} onClick={()=>alert("Not available...")}></Button>}
             <TodoVisibilityController/>
             <Button text={"Filter"} classes="Filter-button" onClick={openFilter}></Button>
             <Button text={"Log out"} onClick={handleLogOut}/>
+            <Button text={"Settings"} onClick={openSettingsModal} />
             <Modal title="All item has been removed!" visible={allRemovedModalVisible} setVisible={setAllRemovedModalVisible} modalContent={<AllTodoRemovedModal/>} innerRef={allRemovedModalRef}/>
             <Modal title="" visible={filterModalVisible} setVisible={setFilterModalVisible} modalContent={<FilterModal />} innerRef={filterModalRef}/>
+            <Modal title="Settings" visible={settingsModalVisible} setVisible={setSettingsModalVisible} modalContent={<SettingsModal />} innerRef={settingsModalRef}/>
         </div>
     )
 

@@ -25,7 +25,9 @@ const LoginProvider : FC<ILoginProvider> = ({children}) =>{
     const [user, setUser] = useState<IUser>(new User("", []));
     const [userItems, setUserItems] = useState<ITodo[]>([]);
 
-    const {setTodoItems} = useContext(TodoContext);
+    useEffect(()=>{
+        user.userTodoItems = userItems;
+    }, [userItems]);
 
     return(
         <LoginContext.Provider value={{userLoggedIn, setUserLoggedIn, user, setUser, userItems, setUserItems}}>

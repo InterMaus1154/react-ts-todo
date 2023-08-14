@@ -7,7 +7,7 @@ import { TodoSelectorContext, DEFAULT_COUNTER_DELTA } from "../../context/TodoSe
 import { FilterContext } from "../../context/FilterContext";
 import { ITodo } from "../../util/Todo";
 
-const Mainpanel : FC = () =>{
+const Mainpanel : FC<{isMobile: boolean}> = ({isMobile}) =>{
 
     const {todoItems} = useContext(TodoContext);
     const {counter} = useContext(TodoSelectorContext);
@@ -26,16 +26,46 @@ const Mainpanel : FC = () =>{
     return(
         <div className="Mainpanel">
                 {
-                    todoItems.length > 0 ? filteredItems.slice(counter-DEFAULT_COUNTER_DELTA,counter).map((item, idx) =>{
-                        return(
-                            <TodoBox key={item.id} idx={idx} todoItem={item}/>
-                        )
-                    }) : (
+                    todoItems.length > 0 ?
+                    <>
+                        {
+                            !isMobile?
+                            <>
+                                {filteredItems.slice(counter-DEFAULT_COUNTER_DELTA,counter).map((item, idx) =>{
+                                return(
+                                    <TodoBox key={item.id} idx={idx} todoItem={item}/>
+                                )
+                                })}
+                            </> :
+                            <>
+                                {
+                                    filteredItems.map((item, idx) =>{
+                                        return <TodoBox key={item.id} idx={idx} todoItem={item}/>
+                                    })
+                                }
+                            </>
+                        }
+                    </> : 
+                    <>
                         <h1 className="No-todo-heading">You got nothing to do here!</h1>
-                    )
+                    </>
                 }
         </div>
     )
 }
 
 export default Mainpanel;
+
+/***
+ * todoItems.length > 0 ?
+                        
+                        filteredItems.slice(counter-DEFAULT_COUNTER_DELTA,counter).map((item, idx) =>{
+                            return(
+                                <TodoBox key={item.id} idx={idx} todoItem={item}/>
+                            )
+                        }) : (
+                            <h1 className="No-todo-heading">You got nothing to do here!</h1>
+                        )
+ * 
+ * 
+ */

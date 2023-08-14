@@ -1,12 +1,12 @@
 
 
 
-import {FC, createContext, useState, useEffect} from 'react';
+import {FC, createContext, useState, useEffect, useContext} from 'react';
 
 const ENABLED : true = true;
 const DISABLED : false = false;
 
-interface ISettings{
+export interface ISettings{
     version: string;
     itemAddedPopUp: boolean;
     itemDeletedPopUp: boolean;

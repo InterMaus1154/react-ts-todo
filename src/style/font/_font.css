@@ -3,8 +3,12 @@
     src: url("./prr.ttf"); /*poor richard font */
 }
 
+html{
+    font-size: 0.75em;
+}
+
 body{
-    font-family: poorrich;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .Button{

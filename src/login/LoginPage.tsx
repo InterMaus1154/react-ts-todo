@@ -2,6 +2,9 @@ import {FC, useContext, useState} from 'react';
 import Button from '../components/shared/Button';
 import { LoginContext } from './LoginContext';
 import User, {GUEST_USER} from '../util/User';
+import {Todo, ITodoDate} from '../util/Todo';
+import {Category, DEFAULT_CATEGORIES} from '../util/Category';
+import { IMPORTANCE_GRADES } from '../util/Importance';
 
 const LoginPage : FC<{isRegisterVisible : boolean, setIsRegisterVisible : React.Dispatch<React.SetStateAction<boolean>>}> = ({isRegisterVisible, setIsRegisterVisible}) =>{
 
@@ -15,8 +18,8 @@ const LoginPage : FC<{isRegisterVisible : boolean, setIsRegisterVisible : React.
          * guest = not logged in with an account
          * */
         if(isGuest){
+            //setUser(new User("somebody", [new Todo("test", "hello", new Category(56, "test", "test"), {date: "2025-17-12", allDay: false}, IMPORTANCE_GRADES[1], false)]));
             setUser(GUEST_USER);
-            console.log(window.localStorage.getItem("tsx-todo-items") === null ? "alma" : "körte");
             setUserLoggedIn(true);
             return;
         }
