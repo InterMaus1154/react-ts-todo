@@ -104,3 +104,27 @@ export const SettingsModal : FC = ()=>{
         </div>
     );
 }
+
+export const UserRegisteredModal : FC = ()=>{
+    return(
+        <div className="ModalContent">
+            <h2>User succesfully registered!</h2>
+        </div>
+    );
+}
+
+export const UserExistModal : FC = ()=>{
+    return(
+        <div className="ModalContent">
+            <h2>This username has been already registered!</h2>
+        </div>
+    );
+}
+
+export const FillOutFieldsModal : FC = ()=>{
+    return(
+        <div className='ModalContent'>
+            <h2>Make sure to fill out all the required fields!</h2>
+        </div>
+    );
+};

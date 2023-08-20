@@ -2,6 +2,7 @@ import {FC, createContext, useState, useEffect, useContext} from 'react';
 import User, { IUser } from '../util/User';
 import { ITodo } from '../util/Todo';
 import { TodoContext } from '../context/TodoContext';
+import { io, Socket } from 'socket.io-client';
 
 interface ILoginContext{
     userLoggedIn: boolean;
@@ -10,7 +11,6 @@ interface ILoginContext{
     setUser: React.Dispatch<React.SetStateAction<IUser>>
     userItems : ITodo[];
     setUserItems: React.Dispatch<React.SetStateAction<ITodo[]>>;
-
 }
 
 export const LoginContext = createContext({userLoggedIn: false, setUserLoggedIn: ()=>{}, user: new User("", []), setUser: ()=>{}, userItems: [], setUserItems: ()=>{}} as ILoginContext);

@@ -8,7 +8,7 @@ export interface IUser{
     userTodoItems: ITodo[];
     userSettings?: ISettings;
     userPreferredTheme?: ThemeTypes;
-   // setUserTodoItems(todoItems: ITodo[]): void;
+    userDisplayName?: string;
 }
 
 

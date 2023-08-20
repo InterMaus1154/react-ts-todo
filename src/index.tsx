@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import StatusDependentPanel from './login/StatusDependentPanel';
 import {BrowserRouter} from 'react-router-dom';
 import LoginProvider from "./login/LoginContext";
+import SocketProvider from './login/SocketContext';
 
 import "./style/App.css";
 import "./style/theme.css";
@@ -12,12 +13,12 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
     <BrowserRouter>
-      <LoginProvider >
-        <StatusDependentPanel />
-      </LoginProvider >
+      <SocketProvider>
+        <LoginProvider >
+          <StatusDependentPanel />
+        </LoginProvider >
+      </SocketProvider>
     </BrowserRouter>
-  </React.StrictMode>
 );
 

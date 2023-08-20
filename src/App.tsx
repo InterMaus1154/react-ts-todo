@@ -1,6 +1,6 @@
 
 
-import {FC, useState, useEffect, useRef} from 'react';
+import {FC, useState, useEffect, useContext} from 'react';
 
 
 import { ThemeContext, ThemeTypes } from "./context/ThemeContext";
@@ -14,8 +14,10 @@ import TodoSelectorProvider from "./context/TodoSelectorContext";
 import CategoryContextProvider from "./context/CategoryContext";
 import FilterProvider from "./context/FilterContext";
 
+import { Socket } from 'socket.io-client';
 
 const App : FC = () =>{
+
 
   const [theme, setTheme]  = useState<ThemeTypes>(window.localStorage.getItem("todo-tsx-preferred-theme") ? window.localStorage.getItem("todo-tsx-preferred-theme") as ThemeTypes : "light");
 
@@ -48,6 +50,8 @@ const App : FC = () =>{
   useEffect(()=>{
     setIsMobile(width < 1000);
   }, [width]);
+
+
 
   return (
 

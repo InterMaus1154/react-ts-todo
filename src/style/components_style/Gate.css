@@ -30,3 +30,11 @@
     justify-content: center;
     align-items: center;
 }
+
+.Required-field{
+    color: red;
+}
+
+.Warning-colored{
+    color: red;
+}
