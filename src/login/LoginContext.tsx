@@ -11,9 +11,11 @@ interface ILoginContext{
     setUser: React.Dispatch<React.SetStateAction<IUser>>
     userItems : ITodo[];
     setUserItems: React.Dispatch<React.SetStateAction<ITodo[]>>;
+    isAuthorized: boolean;
+    setIsAuthorized: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const LoginContext = createContext({userLoggedIn: false, setUserLoggedIn: ()=>{}, user: new User("", []), setUser: ()=>{}, userItems: [], setUserItems: ()=>{}} as ILoginContext);
+export const LoginContext = createContext({userLoggedIn: false, setUserLoggedIn: ()=>{}, user: new User("", [], ""), setUser: ()=>{}, userItems: [], setUserItems: ()=>{}, isAuthorized: false, setIsAuthorized: ()=>{}} as ILoginContext);
 
 interface ILoginProvider{
     children: React.ReactNode;
@@ -22,15 +24,20 @@ interface ILoginProvider{
 const LoginProvider : FC<ILoginProvider> = ({children}) =>{
     
     const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);
-    const [user, setUser] = useState<IUser>(new User("", []));
+    const [user, setUser] = useState<IUser>(new User("", [], ""));
     const [userItems, setUserItems] = useState<ITodo[]>([]);
+    const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
 
     useEffect(()=>{
         user.userTodoItems = userItems;
     }, [userItems]);
 
+    useEffect(()=>{
+        setIsAuthorized(userLoggedIn);
+    }, [userLoggedIn]);
+
     return(
-        <LoginContext.Provider value={{userLoggedIn, setUserLoggedIn, user, setUser, userItems, setUserItems}}>
+        <LoginContext.Provider value={{userLoggedIn, setUserLoggedIn, user, setUser, userItems, setUserItems, isAuthorized, setIsAuthorized}}>
             {children}
         </LoginContext.Provider>
     )

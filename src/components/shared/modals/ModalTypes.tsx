@@ -128,3 +128,11 @@ export const FillOutFieldsModal : FC = ()=>{
         </div>
     );
 };
+
+export const InvalidCredentials : FC = ()=>{
+    return(
+        <div className='ModalContent'>
+            <h2>Your username or password is invalid!</h2>
+        </div>
+    );
+};

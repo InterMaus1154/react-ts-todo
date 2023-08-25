@@ -13,11 +13,24 @@ import SettingsProvider from "./context/SettingsContext";
 import TodoSelectorProvider from "./context/TodoSelectorContext";
 import CategoryContextProvider from "./context/CategoryContext";
 import FilterProvider from "./context/FilterContext";
+import { LoginContext } from './login/LoginContext';
+
+import { useNavigate } from 'react-router-dom';
 
 import { Socket } from 'socket.io-client';
 
 const App : FC = () =>{
 
+  const {isAuthorized} = useContext(LoginContext);
+
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(!isAuthorized){
+      alert("You are not authorized to access this page!");
+      navigate("/");
+    }
+  }, []);
 
   const [theme, setTheme]  = useState<ThemeTypes>(window.localStorage.getItem("todo-tsx-preferred-theme") ? window.localStorage.getItem("todo-tsx-preferred-theme") as ThemeTypes : "light");
 

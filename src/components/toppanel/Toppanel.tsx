@@ -12,6 +12,8 @@ import TodoVisibilityController from "./components/TodoVisibilityController";
 import { LoginContext } from "../../login/LoginContext";
 import { GUEST_USER } from "../../util/User";
 
+import { useNavigate } from "react-router-dom";
+
 interface IToppanel{
     isSidePanelVisible: boolean;
     setSidePanelVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +24,8 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
     const {theme, toggleTheme} = useContext(ThemeContext);
     const {setTodoItems} = useContext(TodoContext);
 
+    const navigate = useNavigate();
+
     const [allRemovedModalVisible, setAllRemovedModalVisible] = useState<boolean>(false);
     const [filterModalVisible, setFilterModalVisible] = useState<boolean>(false);
     const [settingsModalVisible, setSettingsModalVisible] = useState<boolean>(false);
@@ -30,7 +34,7 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
     const filterModalRef = useRef<HTMLDivElement>(document.createElement("div"));
     const settingsModalRef = useRef<HTMLDivElement>(document.createElement("div"));
 
-    const {user, setUserLoggedIn} = useContext(LoginContext);
+    const {user, setUserLoggedIn, setIsAuthorized} = useContext(LoginContext);
 
     const onDeleteItems = () : void =>{
         setTodoItems([]);
@@ -75,6 +79,8 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
 
     const handleLogOut = () : void =>{
         setUserLoggedIn(false);
+        setIsAuthorized(false);
+        navigate("/");
     }
 
     return(

@@ -8,16 +8,18 @@ export interface IUser{
     userTodoItems: ITodo[];
     userSettings?: ISettings;
     userPreferredTheme?: ThemeTypes;
-    userDisplayName?: string;
+    userDisplayName: string;
 }
 
 
 export default class User implements IUser{
     username: string;
     userTodoItems: ITodo[];
-    constructor(username: string, userTodoItems: ITodo[]) {
+    userDisplayName: string;
+    constructor(username: string, userTodoItems: ITodo[], userDisplayName: string) {
         this.username = username;
         this.userTodoItems = userTodoItems;
+        this.userDisplayName = userDisplayName;
     }
 
     /*setUserTodoItems(items: ITodo[]): void {
@@ -25,7 +27,7 @@ export default class User implements IUser{
     }*/
 }
 
-export const GUEST_USER = new User("Guest", JSON.parse(window.localStorage.getItem("tsx-todo-items") as string) === null ? [] : JSON.parse(window.localStorage.getItem("tsx-todo-items") as string));
+export const GUEST_USER = new User("Guest", JSON.parse(window.localStorage.getItem("tsx-todo-items") as string) === null ? [] : JSON.parse(window.localStorage.getItem("tsx-todo-items") as string), "Guest");
 
 
 //JSON.parse(window.localStorage.getItem("tsx-todo-items") as string) === null ? [] : JSON.parse(window.localStorage.getItem("tsx-todo-items") as string)

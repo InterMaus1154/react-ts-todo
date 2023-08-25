@@ -6,9 +6,13 @@ import Modal from '../components/shared/modals/Modal';
 import { UserRegisteredModal, UserExistModal, FillOutFieldsModal } from '../components/shared/modals/ModalTypes';
 
 
-const RegisterPage : FC<{isRegisterVisible : boolean, setIsRegisterVisible : React.Dispatch<React.SetStateAction<boolean>>}> = ({isRegisterVisible, setIsRegisterVisible}) =>{
+import { useNavigate } from 'react-router-dom';
+
+const RegisterPage : FC = () =>{
     
     const {socket} = useContext(SocketContext);
+
+    const navigate = useNavigate();
 
     const [userRegisteredModalVisible, setUserRegisteredModalVisible] = useState<boolean>(false);
     const userRegisteredModalRef = useRef(document.createElement("div"));
@@ -46,30 +50,34 @@ const RegisterPage : FC<{isRegisterVisible : boolean, setIsRegisterVisible : Rea
     const [userName, setUserName] = useState<string>("");
     const [displayName, setDisplayName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const passwordRef = useRef(document.createElement("input"));
 
 
     const handleRegister = (e : React.FormEvent<HTMLFormElement>) : void =>{
         e.preventDefault();
         console.log("Register button clicked!");
-        if(isStringEmpty(userName) || isStringEmpty(displayName) || isStringEmpty(password)){
+        if(isStringEmpty(userName) || isStringEmpty(displayName) || isStringEmpty(password) || password.trim().length < 8){
             setInvalidInputsModalVisible(true);
             return;
         }
 
 
-        const user = new User(userName, []);
+        const user = new User(userName, [], displayName);
         socket.emit("request_username_check", {user: user});
 
     };
 
     useEffect(()=>{
+
+        const passRef = passwordRef.current;
+
         socket.on("username_check_response", data =>{
             if(data.isUserExist){
                 setUserExistModalVisible(true);
                 return;
             }
-
-        socket.emit("register_user", {user: data.user});
+        socket.emit("register_user", {user: data.user, password: passRef.value});
+        }); 
 
         socket.on("user_registered", data =>{
             if(data.isUserRegistered){
@@ -77,13 +85,11 @@ const RegisterPage : FC<{isRegisterVisible : boolean, setIsRegisterVisible : Rea
                 return;
             }
         });
-
-        });
     }, []);
 
 
     return(
-        <div className={isRegisterVisible ? "Register-page" : "Visibility-hidden"}>
+        <div className="Gate-panel">
             <h2>Create an account with us</h2>
             <form className="InputFields" onSubmit={e => handleRegister(e)}>
                 <label>Username:<span className="Required-field">*</span>
@@ -93,13 +99,13 @@ const RegisterPage : FC<{isRegisterVisible : boolean, setIsRegisterVisible : Rea
                     <input type="text" placeholder="Display name..." onChange={e => setDisplayName(e.target.value)}/>
                 </label>
                 <label>Password: <span className="Required-field">*</span>
-                    <input type="password" placeholder="Password..."  onChange={e => setPassword(e.target.value)}/>
+                    <input type="password" placeholder="Password..."  onChange={e => setPassword(e.target.value)} ref={passwordRef}/>
                     <span style={{color: "red", fontSize: ".9em"}}>Password must be at least 8 characters long!</span>
                 </label>
                 <Button text="Register Now" />
             </form>
             <h3>Already have an account?</h3>
-            <Button text="Login now" onClick={()=>{setIsRegisterVisible(false); window.location.reload()}}/>
+            <Button text="Login now" onClick={()=>{navigate("/")}}/>
             
             <Modal title="User registered" modalContent={<UserRegisteredModal/>} visible={userRegisteredModalVisible} setVisible={setUserRegisteredModalVisible} innerRef={userRegisteredModalRef}/>
             <Modal title="User already registered" modalContent={<UserExistModal/>} visible={userExistModalVisible} setVisible={setUserExistModalVisible} innerRef={userExistModalRef}/>
