@@ -5,7 +5,6 @@ import RegisterPage from './RegisterPage';
 
 const GatePanel :FC = () =>{
 
-    const [isRegisterVisible, setIsRegisterVisible] = useState<boolean>(false);
 
     return(
         <div className="Gate-panel">

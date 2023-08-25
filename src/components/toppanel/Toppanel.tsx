@@ -14,6 +14,8 @@ import { GUEST_USER } from "../../util/User";
 
 import { useNavigate } from "react-router-dom";
 
+import { SocketContext } from "../../login/SocketContext";
+
 interface IToppanel{
     isSidePanelVisible: boolean;
     setSidePanelVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,6 +37,7 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
     const settingsModalRef = useRef<HTMLDivElement>(document.createElement("div"));
 
     const {user, setUserLoggedIn, setIsAuthorized} = useContext(LoginContext);
+    const {socket} = useContext(SocketContext);
 
     const onDeleteItems = () : void =>{
         setTodoItems([]);
@@ -83,6 +86,11 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
         navigate("/");
     }
 
+    const saveToServer = () : void =>{
+        console.log(user.userTodoItems);
+        socket.emit("save_todo_items", {username: user.username, todoItems: user.userTodoItems});
+    }
+
     return(
         <div className="Toppanel">
             <Button classes={"Sidemenu-button"} text="Sidemenu" onClick={toggleSidepanel}/>
@@ -93,7 +101,7 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
             </div>
             
             <Button text={"Clear all todo"} onClick={onDeleteItems}></Button>
-            {user.username !== GUEST_USER.username && <Button text={"Save to server"} onClick={()=>alert("Not available...")}></Button>}
+            {user.username !== GUEST_USER.username && <Button text={"Save to server"} onClick={saveToServer}></Button>}
             <TodoVisibilityController/>
             <Button text={"Filter"} classes="Filter-button" onClick={openFilter}></Button>
             <Button text={"Log out"} onClick={handleLogOut}/>
