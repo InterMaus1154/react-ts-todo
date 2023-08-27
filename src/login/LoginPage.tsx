@@ -77,24 +77,29 @@ const LoginPage : FC = () =>{
     }, []);
 
     return(
-        <div className={"Login-page"}>
-            <h2>Log in if you already have an account</h2>
-            <form className="InputFields" onSubmit={handleLogin}>
-                <label>Username
-                    <input type="text" placeholder="Username" onChange={e=>{setUsername(e.target.value)}}/>
-                </label>
-                <label>Password
-                    <input type="password" placeholder="Password" ref={passwordRef} onChange={e =>{setPassword(e.target.value)}}/>
-                </label>
+        <div className="Gate-panel">
+            <h1>Welcome to Verina Todo App {new Date().getFullYear()}</h1>
+        
+            <div className={"Login-page"}>
+                <h2>Log in if you already have an account</h2>
+                <form className="InputFields" onSubmit={handleLogin}>
+                    <label>Username
+                        <input type="text" placeholder="Username" onChange={e=>{setUsername(e.target.value)}}/>
+                    </label>
+                    <label>Password
+                        <input type="password" placeholder="Password" ref={passwordRef} onChange={e =>{setPassword(e.target.value)}}/>
+                    </label>
 
-                <Button text="Login" />
-            </form>
-            <form className="InputFields ButtonDivision" onSubmit={(e)=>{e.preventDefault()}}>
-                <Button text="Login as Guest" onClick={(e)=>{handleLogin(e as any, true)}}/>
-                <Button text="Register" onClick={()=>{navigate("/register")}}/>
-            </form>
-            
-            <Modal title="Failed to login" modalContent={<InvalidCredentials />} visible={invalidLoginModalVisible} setVisible={setInvalidLoginModalVisible} innerRef={invalidLoginModalRef}/>
+                    <Button text="Login" />
+                </form>
+                <form className="InputFields ButtonDivision" onSubmit={(e)=>{e.preventDefault()}}>
+                    <Button text="Login as Guest" onClick={(e)=>{handleLogin(e as any, true)}}/>
+                    <Button text="Register" onClick={()=>{navigate("/register")}}/>
+                </form>
+                
+                <Modal title="Failed to login" modalContent={<InvalidCredentials />} visible={invalidLoginModalVisible} setVisible={setInvalidLoginModalVisible} innerRef={invalidLoginModalRef}/>
+            </div>
+            <h3>Remember to save your items (Save to server) <br />after every changes you make!</h3>
         </div>
     );
 }
