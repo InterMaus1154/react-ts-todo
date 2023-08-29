@@ -9,7 +9,7 @@ export const SocketContext = createContext({socket: io()} as ISocketContext);
 
 
 //const socket_ = io("192.168.0.10:3001");
-const socket_ = io("https://verinaappbetaserver.onrender.com");
+const socket_ = io("192.168.0.10:3001");
 
 const SocketProvider : FC<{children: React.ReactNode}> = ({children})=>{
     
