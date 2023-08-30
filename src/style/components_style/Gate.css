@@ -1,19 +1,38 @@
 
 #root{
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #F5F5F5;
+    background-image: url('https://images.unsplash.com/photo-1691958671724-966fd5a84cc2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1335&q=80');
+    background-size: cover;
 }
 
 .Gate-panel{
-    background-color: #c8c8c8;
-    padding: 32px;
-    border-radius: 8px;
+    max-width: 400px;
+    background-color: #c8c8c8a0;
+    backdrop-filter: blur(4px) brightness(0.9) opacity(0.1);
+    border-bottom: 2px solid black;
+    padding: 30px;
     margin: 12px;
+    border-radius: 10px;
 }
-
+.Gate-panel > h1{
+    text-align: center;
+}
+.Login-page h2{
+font-size: small
+}
+#loginbtn{
+    margin: 0px 20px;
+}
 .InputFields.ButtonDivision{
     flex-direction: row;
     gap: 0;
     margin-top: 8px;
+}
+.InputFields label > input{
+    width: 100%;
+    border: none;
+    padding: 10px 5px;
 }
 
 .InputFields.ButtonDivision button{
