@@ -78,10 +78,9 @@ const LoginPage : FC = () =>{
 
     return(
         <div className="Gate-panel">
-            <h1>Welcome to Verina Todo App {new Date().getFullYear()}</h1>
+            <h1>Welcome to <br></br> Verina Todo App {new Date().getFullYear()}</h1>
         
             <div className={"Login-page"}>
-                <h2>Log in if you already have an account</h2>
                 <form className="InputFields" onSubmit={handleLogin}>
                     <label>Username
                         <input type="text" placeholder="Username" onChange={e=>{setUsername(e.target.value)}}/>
@@ -89,7 +88,7 @@ const LoginPage : FC = () =>{
                     <label>Password
                         <input type="password" placeholder="Password" ref={passwordRef} onChange={e =>{setPassword(e.target.value)}}/>
                     </label>
-
+                    <h2>Log in if you already have an account</h2>
                     <Button text="Login" />
                 </form>
                 <form className="InputFields ButtonDivision" onSubmit={(e)=>{e.preventDefault()}}>

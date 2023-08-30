@@ -1,8 +1,4 @@
-
-
 import {FC, useState, useEffect, useContext} from 'react';
-
-
 import { ThemeContext, ThemeTypes } from "./context/ThemeContext";
 import Sidepanel from "./components/sidepanel/Sidepanel";
 import Toppanel from "./components/toppanel/Toppanel";
