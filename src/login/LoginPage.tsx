@@ -66,7 +66,7 @@ const LoginPage : FC = () =>{
             if(data.isUserExist && data.isUserAuthorised){
                 setIsAuthorized(data.isUserAuthorised);
                 setUserLoggedIn(true);
-                setUser(new User(data.user.username, data.user.userTodoItems, data.user.displayname));
+                setUser(new User(data.user.username, data.user.userTodoItems, data.user.displayname, data.user.userSettings));
                 navigate("/app");
             }else{
                 setIsAuthorized(false);

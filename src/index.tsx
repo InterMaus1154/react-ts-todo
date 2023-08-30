@@ -4,6 +4,7 @@ import StatusDependentPanel from './login/StatusDependentPanel';
 import {BrowserRouter} from 'react-router-dom';
 import LoginProvider from "./login/LoginContext";
 import SocketProvider from './login/SocketContext';
+import SettingsProvider from './context/SettingsContext';
 
 import "./style/App.css";
 import "./style/theme.css";
@@ -15,9 +16,11 @@ const root = ReactDOM.createRoot(
 root.render(
     <BrowserRouter>
       <SocketProvider>
+        <SettingsProvider>
         <LoginProvider >
           <StatusDependentPanel />
         </LoginProvider >
+        </SettingsProvider>
       </SocketProvider>
     </BrowserRouter>
 );

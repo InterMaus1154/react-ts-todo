@@ -3,6 +3,7 @@ import User, { IUser } from '../util/User';
 import { ITodo } from '../util/Todo';
 import { TodoContext } from '../context/TodoContext';
 import { io, Socket } from 'socket.io-client';
+import { DefaultSettings } from '../context/SettingsContext';
 
 interface ILoginContext{
     userLoggedIn: boolean;
@@ -15,7 +16,7 @@ interface ILoginContext{
     setIsAuthorized: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const LoginContext = createContext({userLoggedIn: false, setUserLoggedIn: ()=>{}, user: new User("", [], ""), setUser: ()=>{}, userItems: [], setUserItems: ()=>{}, isAuthorized: false, setIsAuthorized: ()=>{}} as ILoginContext);
+export const LoginContext = createContext({userLoggedIn: false, setUserLoggedIn: ()=>{}, user: new User("", [], "", DefaultSettings), setUser: ()=>{}, userItems: [], setUserItems: ()=>{}, isAuthorized: false, setIsAuthorized: ()=>{}} as ILoginContext);
 
 interface ILoginProvider{
     children: React.ReactNode;
@@ -24,7 +25,7 @@ interface ILoginProvider{
 const LoginProvider : FC<ILoginProvider> = ({children}) =>{
     
     const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);
-    const [user, setUser] = useState<IUser>(new User("", [], ""));
+    const [user, setUser] = useState<IUser>(new User("", [], "", DefaultSettings));
     const [userItems, setUserItems] = useState<ITodo[]>([]);
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
 

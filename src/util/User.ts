@@ -1,12 +1,12 @@
 
 import { ITodo } from "./Todo";
-import {ISettings} from "../context/SettingsContext";
+import {ISettings, DefaultSettings} from "../context/SettingsContext";
 import {ThemeTypes} from "../context/ThemeContext";
 
 export interface IUser{
     username: string;
     userTodoItems: ITodo[];
-    userSettings?: ISettings;
+    userSettings: ISettings;
     userPreferredTheme?: ThemeTypes;
     userDisplayName: string;
 }
@@ -16,10 +16,12 @@ export default class User implements IUser{
     username: string;
     userTodoItems: ITodo[];
     userDisplayName: string;
-    constructor(username: string, userTodoItems: ITodo[], userDisplayName: string) {
+    userSettings: ISettings;
+    constructor(username: string, userTodoItems: ITodo[], userDisplayName: string, userSettings: ISettings) {
         this.username = username;
         this.userTodoItems = userTodoItems;
         this.userDisplayName = userDisplayName;
+        this.userSettings = userSettings;
     }
 
     /*setUserTodoItems(items: ITodo[]): void {
@@ -27,7 +29,7 @@ export default class User implements IUser{
     }*/
 }
 
-export const GUEST_USER = new User("Guest", JSON.parse(window.localStorage.getItem("tsx-todo-items") as string) === null ? [] : JSON.parse(window.localStorage.getItem("tsx-todo-items") as string), "Guest");
+export const GUEST_USER = new User("Guest", JSON.parse(window.localStorage.getItem("tsx-todo-items") as string) === null ? [] : JSON.parse(window.localStorage.getItem("tsx-todo-items") as string), "Guest", DefaultSettings);
 
 
 //JSON.parse(window.localStorage.getItem("tsx-todo-items") as string) === null ? [] : JSON.parse(window.localStorage.getItem("tsx-todo-items") as string)

@@ -4,7 +4,7 @@ import User from '../util/User';
 import { SocketContext } from './SocketContext';
 import Modal from '../components/shared/modals/Modal';
 import { UserRegisteredModal, UserExistModal, FillOutFieldsModal } from '../components/shared/modals/ModalTypes';
-
+import { DefaultSettings } from '../context/SettingsContext';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -62,7 +62,7 @@ const RegisterPage : FC = () =>{
         }
 
 
-        const user = new User(userName, [], displayName);
+        const user = new User(userName, [], displayName, DefaultSettings);
         socket.emit("request_username_check", {user: user});
 
     };

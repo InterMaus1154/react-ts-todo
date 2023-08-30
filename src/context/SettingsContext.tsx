@@ -2,6 +2,10 @@
 
 
 import {FC, createContext, useState, useEffect, useContext} from 'react';
+import { LoginContext } from '../login/LoginContext';
+import { GUEST_USER } from '../util/User';
+import { ThemeTypes } from './ThemeContext';
+import { SocketContext } from '../login/SocketContext';
 
 const ENABLED : true = true;
 const DISABLED : false = false;
@@ -11,15 +15,17 @@ export interface ISettings{
     itemAddedPopUp: boolean;
     itemDeletedPopUp: boolean;
     adminTools: boolean;
+    interfaceTheme: ThemeTypes;
 }
 
 
 //if default settings are modified, the version number must be changed in order to force recapture
 export let DefaultSettings: ISettings = {
-    version: "101",
+    version: "500",
     itemAddedPopUp: ENABLED,
     itemDeletedPopUp: ENABLED,
-    adminTools: ENABLED
+    adminTools: DISABLED,
+    interfaceTheme: "light"
 };
 
 
@@ -36,6 +42,8 @@ interface ISettingsProvider{
 
 const SettingsProvider : FC<ISettingsProvider> = ({children}) =>{
 
+    const {socket} = useContext(SocketContext);
+
     let defSets : Partial<ISettings> = {};
     if(window.localStorage.getItem("tsx-todo-settings")){
         if(JSON.parse(window.localStorage.getItem("tsx-todo-settings") as string).version !== DefaultSettings.version){
@@ -46,10 +54,13 @@ const SettingsProvider : FC<ISettingsProvider> = ({children}) =>{
     }
 
     const [settings, setSettings] = useState<ISettings>(defSets as ISettings);
+    const {user} = useContext(LoginContext);
 
-    useEffect(()=>{
-        window.localStorage.setItem("tsx-todo-settings", JSON.stringify(settings));
-    }, [settings]);
+    /*useEffect(()=>{
+        user.username === GUEST_USER.username && window.localStorage.setItem("tsx-todo-settings", JSON.stringify(settings));
+        user.userSettings = settings;
+        socket.emit("user_settings_modified", {username: user.username, userSettings: user.userSettings});
+    }, [settings]);*/
 
     return(
         <SettingsContext.Provider value={{settings, setSettings}}>

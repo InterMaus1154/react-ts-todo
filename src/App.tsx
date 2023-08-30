@@ -14,14 +14,18 @@ import TodoSelectorProvider from "./context/TodoSelectorContext";
 import CategoryContextProvider from "./context/CategoryContext";
 import FilterProvider from "./context/FilterContext";
 import { LoginContext } from './login/LoginContext';
-
+import { GUEST_USER } from './util/User';
+import { SettingsContext } from './context/SettingsContext';
 import { useNavigate } from 'react-router-dom';
+import { SocketContext } from './login/SocketContext';
 
-import { Socket } from 'socket.io-client';
+
 
 const App : FC = () =>{
 
-  const {isAuthorized} = useContext(LoginContext);
+  const {user,isAuthorized} = useContext(LoginContext);
+  const {socket} = useContext(SocketContext);
+  const {settings, setSettings} = useContext(SettingsContext);
 
   const navigate = useNavigate();
 
@@ -32,7 +36,13 @@ const App : FC = () =>{
     }
   }, []);
 
-  const [theme, setTheme]  = useState<ThemeTypes>(window.localStorage.getItem("todo-tsx-preferred-theme") ? window.localStorage.getItem("todo-tsx-preferred-theme") as ThemeTypes : "light");
+
+
+  const [theme, setTheme]  = useState<ThemeTypes>(
+    user.username === GUEST_USER.username ? window.localStorage.getItem("todo-tsx-preferred-theme") ? window.localStorage.getItem("todo-tsx-preferred-theme") as ThemeTypes : "light"
+    :
+    user.userSettings.interfaceTheme
+    );
 
   //only small view
   const [isSidepanelVisible, setSidepanelVisible] = useState<boolean>(false);
@@ -42,8 +52,18 @@ const App : FC = () =>{
   };
 
   useEffect(()=>{
-    window.localStorage.setItem("todo-tsx-preferred-theme", theme);
+    if(user.username === GUEST_USER.username){
+      window.localStorage.setItem("todo-tsx-preferred-theme", theme);
+    }
+
+    setSettings({...settings, interfaceTheme: theme});
   }, [theme]);
+
+  useEffect(()=>{
+    user.username === GUEST_USER.username && window.localStorage.setItem("tsx-todo-settings", JSON.stringify(settings));
+    user.userSettings = settings;
+    socket.emit("user_settings_modified", {username: user.username, userSettings: user.userSettings});
+  }, [settings]);
 
   const [width, setWidth] = useState<number>(window.innerWidth);
 
@@ -68,7 +88,6 @@ const App : FC = () =>{
 
   return (
 
-    <SettingsProvider>
       <TodoProvider>
         <FilterProvider>
         <CategoryContextProvider>
@@ -84,7 +103,6 @@ const App : FC = () =>{
         </CategoryContextProvider>
         </FilterProvider>
       </TodoProvider>
-    </SettingsProvider>
   );
 }
 
