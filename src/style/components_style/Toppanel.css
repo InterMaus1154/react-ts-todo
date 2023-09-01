@@ -53,3 +53,18 @@
     }
     
 }
+
+
+.SettingsModal{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.75rem;
+}
+
+.SettingsModal label, .SettingsModal label input{
+    cursor: pointer;
+}

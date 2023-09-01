@@ -99,6 +99,9 @@ const LoginPage : FC = () =>{
                 <Modal title="Failed to login" modalContent={<InvalidCredentials />} visible={invalidLoginModalVisible} setVisible={setInvalidLoginModalVisible} innerRef={invalidLoginModalRef}/>
             </div>
             <h3>Remember to save your items (Save to server) <br />after every changes you make!</h3>
+            <h3 className="Warning-colored">Note: This app is still under development,<br /> you may encounter unknown bugs and issues!</h3>
+            <h3 className="Warning-colored">Do not store sensitive or important information as it may be lost</h3>
+            <h3 className="Warning-colored">The categories are only stored locally (Server-side save is coming later)!</h3>
         </div>
     );
 }

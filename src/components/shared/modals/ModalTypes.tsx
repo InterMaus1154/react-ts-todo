@@ -6,22 +6,21 @@ import Button from '../Button';
 import { generateKey } from '../../../util/Key';
 import { ICategory } from '../../../util/Category';
 import FilterBox from '../../sidepanel/components/FilterBox';
+import SettingsComponent from '../../toppanel/components/Settings';
+import "../../../style/components_style/Toppanel.css";
 
 export const ItemAddedModal : FC = ()=>{
 
-    const [checked, setChecked] = useState<boolean>(false);
-    const {settings, setSettings} = useContext(SettingsContext);
 
-    const onChange : React.ChangeEventHandler<HTMLInputElement> = () : void =>{
-        setChecked(!checked);
-        setSettings({...settings, itemAddedPopUp: !settings.itemAddedPopUp});
-    }
+    const {settings, setSettings} = useContext(SettingsContext);
 
     return(
         <div className="Modal-content">
             <h2>New item successfully added</h2>
             <label>Don't show again
-                <input type="checkbox" checked={checked} onChange={onChange}/>
+                <input type="checkbox" checked={!settings.itemAddedPopUp} onChange={()=>{
+                    setSettings({...settings, itemAddedPopUp: !settings.itemAddedPopUp});
+                }}/>
             </label>
         </div>
     )
@@ -99,8 +98,8 @@ export const FilterModal : FC = ()=>{
 
 export const SettingsModal : FC = ()=>{
     return(
-        <div className="ModalContent">
-            
+        <div className="ModalContent SettingsModal">
+            <SettingsComponent />
         </div>
     );
 }

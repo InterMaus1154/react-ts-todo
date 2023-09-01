@@ -42,7 +42,7 @@ interface ISettingsProvider{
 
 const SettingsProvider : FC<ISettingsProvider> = ({children}) =>{
 
-    const {socket} = useContext(SocketContext);
+    //const {socket} = useContext(SocketContext);
 
     let defSets : Partial<ISettings> = {};
     if(window.localStorage.getItem("tsx-todo-settings")){
@@ -54,7 +54,7 @@ const SettingsProvider : FC<ISettingsProvider> = ({children}) =>{
     }
 
     const [settings, setSettings] = useState<ISettings>(defSets as ISettings);
-    const {user} = useContext(LoginContext);
+    //const {user} = useContext(LoginContext);
 
     /*useEffect(()=>{
         user.username === GUEST_USER.username && window.localStorage.setItem("tsx-todo-settings", JSON.stringify(settings));

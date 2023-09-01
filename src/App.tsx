@@ -37,7 +37,7 @@ const App : FC = () =>{
   const [theme, setTheme]  = useState<ThemeTypes>(
     user.username === GUEST_USER.username ? window.localStorage.getItem("todo-tsx-preferred-theme") ? window.localStorage.getItem("todo-tsx-preferred-theme") as ThemeTypes : "light"
     :
-    user.userSettings.interfaceTheme
+    user.userSettings ? user.userSettings.interfaceTheme : "light"
     );
 
   //only small view
