@@ -54,14 +54,13 @@ const SettingsProvider : FC<ISettingsProvider> = ({children}) =>{
         }
     }
 
-    const [settings, setSettings] = useState<ISettings>(user.username === GUEST_USER.username ? defSets as ISettings : user.userSettings);
-    //const {user} = useContext(LoginContext);
+    const [settings, setSettings] = useState<ISettings>(user.userSettings);
 
-    /*useEffect(()=>{
-        user.username === GUEST_USER.username && window.localStorage.setItem("tsx-todo-settings", JSON.stringify(settings));
-        user.userSettings = settings;
-        socket.emit("user_settings_modified", {username: user.username, userSettings: user.userSettings});
-    }, [settings]);*/
+    useEffect(()=>{
+        if(user !== undefined){
+            setSettings(user.userSettings);
+        }
+    }, [user]);
 
     return(
         <SettingsContext.Provider value={{settings, setSettings}}>

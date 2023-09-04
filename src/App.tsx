@@ -1,4 +1,4 @@
-import {FC, useState, useEffect, useContext} from 'react';
+import {FC, useState, useEffect, useContext, useRef} from 'react';
 import { ThemeContext, ThemeTypes } from "./context/ThemeContext";
 import Sidepanel from "./components/sidepanel/Sidepanel";
 import Toppanel from "./components/toppanel/Toppanel";
@@ -55,9 +55,20 @@ const App : FC = () =>{
     setSettings({...settings, interfaceTheme: theme});
   }, [theme]);
 
+  const firstUpdate = useRef(true);
+
   useEffect(()=>{
+    if(firstUpdate.current){
+      firstUpdate.current = false;
+      return;
+    }
+
     user.username === GUEST_USER.username && window.localStorage.setItem("tsx-todo-settings", JSON.stringify(settings));
+
+    
     user.userSettings = settings;
+    
+    
     socket.emit("user_settings_modified", {username: user.username, userSettings: user.userSettings});
   }, [settings]);
 

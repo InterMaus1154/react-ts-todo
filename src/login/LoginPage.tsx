@@ -6,10 +6,11 @@ import { SocketContext } from './SocketContext';
 import Modal from '../components/shared/modals/Modal';
 import { InvalidCredentials } from '../components/shared/modals/ModalTypes';
 import { useNavigate } from 'react-router-dom';
+import { flushSync } from 'react-dom';
 
 const LoginPage : FC = () =>{
 
-    const {setUserLoggedIn, setUser, setIsAuthorized} = useContext(LoginContext);
+    const {user, setUserLoggedIn, setUser, setIsAuthorized} = useContext(LoginContext);
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const {socket} = useContext(SocketContext);
@@ -64,9 +65,16 @@ const LoginPage : FC = () =>{
 
         socket.on("user_auth_response", data =>{
             if(data.isUserExist && data.isUserAuthorised){
-                setIsAuthorized(data.isUserAuthorised);
-                setUserLoggedIn(true);
-                setUser(new User(data.user.username, data.user.userTodoItems, data.user.displayname, data.user.userSettings));
+                
+                flushSync(()=>{
+                    setUser(new User(data.user.username, data.user.userTodoItems, data.user.displayname, data.user.userSettings));
+                    setIsAuthorized(data.isUserAuthorised);
+                    setUserLoggedIn(true);
+                    console.log(data.user); 
+                });
+
+
+                
                 navigate("/app");
             }else{
                 setIsAuthorized(false);

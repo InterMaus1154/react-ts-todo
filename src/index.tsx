@@ -16,11 +16,11 @@ const root = ReactDOM.createRoot(
 root.render(
     <BrowserRouter>
       <SocketProvider>
+      <LoginProvider >
         <SettingsProvider>
-        <LoginProvider >
           <StatusDependentPanel />
-        </LoginProvider >
         </SettingsProvider>
+        </LoginProvider >
       </SocketProvider>
     </BrowserRouter>
 );
