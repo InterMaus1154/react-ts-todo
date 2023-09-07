@@ -29,12 +29,16 @@ const LoginPage : FC = () =>{
          * guest = not logged in with an account
          * */
         if(isGuest){
-
-            setUser(GUEST_USER);
-            setUserLoggedIn(true);
-            setIsAuthorized(true);
+            alert("This feature is temporarily disabled due to technical issues! Please log in or create an account!");
+            navigate("/");
+            /*flushSync(()=>{
+                setUser(GUEST_USER);
+                setIsAuthorized(true);
+                setUserLoggedIn(true);
+            });
+            console.log(user);
             socket.emit("user_is_guest", {isGuest: true});
-            navigate("/app");
+            navigate("/app");*/
             return;
         }
         if(username.trim().length === 0 || password.trim().length === 0){
@@ -70,11 +74,8 @@ const LoginPage : FC = () =>{
                     setUser(new User(data.user.username, data.user.userTodoItems, data.user.displayname, data.user.userSettings));
                     setIsAuthorized(data.isUserAuthorised);
                     setUserLoggedIn(true);
-                    console.log(data.user); 
                 });
 
-
-                
                 navigate("/app");
             }else{
                 setIsAuthorized(false);

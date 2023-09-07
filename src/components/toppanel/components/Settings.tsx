@@ -1,5 +1,5 @@
 
-import {FC, useState, useContext} from 'react';
+import {FC, useEffect, useContext} from 'react';
 import { SettingsContext } from '../../../context/SettingsContext';
 import { ThemeContext } from '../../../context/ThemeContext';
 
@@ -7,6 +7,10 @@ const SettingsComponent : FC = () =>{
     
     const {settings, setSettings} = useContext(SettingsContext);
     const {toggleTheme} = useContext(ThemeContext);
+
+    useEffect(()=>{ 
+        console.log(settings);
+    }, [settings]);
 
     return(
         <>

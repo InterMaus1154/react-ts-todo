@@ -5,7 +5,6 @@ import Toppanel from "./components/toppanel/Toppanel";
 import Mainpanel from "./components/mainpanel/Mainpanel";
 
 import TodoProvider from "./context/TodoContext";
-import SettingsProvider from "./context/SettingsContext";
 import TodoSelectorProvider from "./context/TodoSelectorContext";
 import CategoryContextProvider from "./context/CategoryContext";
 import FilterProvider from "./context/FilterContext";
@@ -29,9 +28,12 @@ const App : FC = () =>{
     if(!isAuthorized){
       alert("You are not authorized to access this page!");
       navigate("/");
+      
+      return;
     }
   }, []);
 
+  
 
 
   const [theme, setTheme]  = useState<ThemeTypes>(
@@ -64,11 +66,7 @@ const App : FC = () =>{
     }
 
     user.username === GUEST_USER.username && window.localStorage.setItem("tsx-todo-settings", JSON.stringify(settings));
-
-    
     user.userSettings = settings;
-    
-    
     socket.emit("user_settings_modified", {username: user.username, userSettings: user.userSettings});
   }, [settings]);
 
@@ -84,6 +82,7 @@ const App : FC = () =>{
       window.removeEventListener("resize", handleWindowSizeChange);
     }
   }, []);
+  
 
   const [isMobile, setIsMobile] = useState<boolean>(width < 1000);
 
@@ -91,10 +90,12 @@ const App : FC = () =>{
     setIsMobile(width < 1000);
   }, [width]);
 
-
+  
+  if(!isAuthorized){
+    return <></>;
+  }
 
   return (
-
       <TodoProvider>
         <FilterProvider>
         <CategoryContextProvider>
