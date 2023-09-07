@@ -29,14 +29,16 @@ const LoginPage : FC = () =>{
          * guest = not logged in with an account
          * */
         if(isGuest){
-            flushSync(()=>{
+            alert("This feature is temporarily disabled due to technical issues! Please log in or create an account!");
+            navigate("/");
+            /*flushSync(()=>{
                 setUser(GUEST_USER);
                 setIsAuthorized(true);
                 setUserLoggedIn(true);
             });
             console.log(user);
             socket.emit("user_is_guest", {isGuest: true});
-            navigate("/app");
+            navigate("/app");*/
             return;
         }
         if(username.trim().length === 0 || password.trim().length === 0){

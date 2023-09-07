@@ -28,10 +28,12 @@ const App : FC = () =>{
     if(!isAuthorized){
       alert("You are not authorized to access this page!");
       navigate("/");
+      
       return;
     }
-  }, [isAuthorized]);
+  }, []);
 
+  
 
 
   const [theme, setTheme]  = useState<ThemeTypes>(
@@ -80,6 +82,7 @@ const App : FC = () =>{
       window.removeEventListener("resize", handleWindowSizeChange);
     }
   }, []);
+  
 
   const [isMobile, setIsMobile] = useState<boolean>(width < 1000);
 
@@ -87,7 +90,10 @@ const App : FC = () =>{
     setIsMobile(width < 1000);
   }, [width]);
 
-
+  
+  if(!isAuthorized){
+    return <></>;
+  }
 
   return (
       <TodoProvider>
