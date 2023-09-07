@@ -29,7 +29,7 @@ export default class User implements IUser{
     }*/
 }
 
-export const GUEST_USER = new User("Guest", JSON.parse(window.localStorage.getItem("tsx-todo-items") as string) === null ? [] : JSON.parse(window.localStorage.getItem("tsx-todo-items") as string), "Guest", DefaultSettings);
+export const GUEST_USER = new User("Guest", [], "Guest", DefaultSettings);
 
 
 //JSON.parse(window.localStorage.getItem("tsx-todo-items") as string) === null ? [] : JSON.parse(window.localStorage.getItem("tsx-todo-items") as string)
