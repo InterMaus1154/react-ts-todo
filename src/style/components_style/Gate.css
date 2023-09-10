@@ -38,3 +38,36 @@
 .Warning-colored{
     color: red;
 }
+
+.Loading-box{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Loading-spin{
+    width: 50px;
+    height: 50px;
+    border: 5px solid transparent;
+    background: linear-gradient(#F3F3F3, #F3F3F3) padding-box,
+                linear-gradient(#000000, #F3F3F3) border-box;
+    border-radius: 50%;
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spin{
+    from{
+        rotate: 0;
+        transform: rotate(0deg);
+    }
+
+    to{
+        rotate: 100%;
+        transform: rotate(360deg);
+    }
+}
