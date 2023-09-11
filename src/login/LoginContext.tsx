@@ -16,7 +16,7 @@ interface ILoginContext{
     setIsAuthorized: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const LoginContext = createContext({userLoggedIn: false, setUserLoggedIn: ()=>{}, user: new User("", [], "", DefaultSettings), setUser: ()=>{}, userItems: [], setUserItems: ()=>{}, isAuthorized: false, setIsAuthorized: ()=>{}} as ILoginContext);
+export const LoginContext = createContext({userLoggedIn: false, setUserLoggedIn: ()=>{}, user: new User("", [], "", DefaultSettings,[]), setUser: ()=>{}, userItems: [], setUserItems: ()=>{}, isAuthorized: false, setIsAuthorized: ()=>{}} as ILoginContext);
 
 interface ILoginProvider{
     children: React.ReactNode;

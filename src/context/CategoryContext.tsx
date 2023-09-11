@@ -1,6 +1,8 @@
 
-import {FC, createContext, useState, useEffect} from 'react';
+import {FC, createContext, useState, useEffect, useContext} from 'react';
 import { ICategory, DEFAULT_CATEGORIES } from '../util/Category';
+import { LoginContext } from '../login/LoginContext';
+import { SocketContext } from '../login/SocketContext';
 
 interface ICategoryContext{
     categories: ICategory[],
@@ -15,12 +17,20 @@ interface ICategoryProvider{
 }
 
 const CategoryContextProvider : FC<ICategoryProvider> = ({children}) =>{
+
+    const {user} = useContext(LoginContext);
+    const {socket} = useContext(SocketContext);
     
-    const [categories, setCategories] = useState<ICategory[]>(window.localStorage.getItem("tsx-todo-categories") ? JSON.parse(window.localStorage.getItem("tsx-todo-categories") as string) : DEFAULT_CATEGORIES);
+    const [categories, setCategories] = useState<ICategory[]>(user.userCategories ? user.userCategories : DEFAULT_CATEGORIES);
     
     useEffect(()=>{
-        window.localStorage.setItem("tsx-todo-categories", JSON.stringify(categories));
+        socket.emit("update_user_categories", {userCategories: categories, username: user.username});
+        user.userCategories = categories;
     }, [categories]);
+
+    useEffect(()=>{
+        setCategories(user.userCategories);
+    }, [user]);
 
     return(
         <CategoryContext.Provider value={{categories, setCategories}}>

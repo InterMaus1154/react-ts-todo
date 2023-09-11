@@ -71,7 +71,7 @@ const LoginPage : FC = () =>{
             if(data.isUserExist && data.isUserAuthorised){
                 
                 flushSync(()=>{
-                    setUser(new User(data.user.username, data.user.userTodoItems, data.user.displayname, data.user.userSettings));
+                    setUser(new User(data.user.username, data.user.userTodoItems, data.user.displayname, data.user.userSettings, data.user.userCategories));
                     setIsAuthorized(data.isUserAuthorised);
                     setUserLoggedIn(true);
                 });
