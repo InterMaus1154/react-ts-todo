@@ -96,14 +96,6 @@ const AddTodoBox : FC = () =>{
         }
     }
 
-    const fillInput = () :void =>{
-        setItemName("Test todo item");
-        setItemDescription("This is a test todo item");
-        dateRef.current.value="2099-09-29";
-        setItemDate(dateRef.current.value);
-        setAllDay(false);
-        setItemTime("12:23");
-    };
 
     return(
         <div className="AddTodoBox SidepanelBox">
@@ -154,7 +146,6 @@ const AddTodoBox : FC = () =>{
             </form>
             
             <Button text="Add" classes="Sidebox-button" onClick={onSubmit}/>
-            {settings.adminTools ? <Button text="Fill" classes="Sidebox-button" onClick={fillInput} />: null}
 
             <Modal innerRef={itemAddedModalRef} title={"New item!"} modalContent={<ItemAddedModal />} visible={itemAddedModalVisible} setVisible={setItemAddedModalVisible}/>
             <Modal innerRef={itemCannotBeAddedModalRef} title={"Wrong inputs!"} modalContent={<ItemDetailsErrorModal />} visible={itemCannotBeAddedModalVisible} setVisible={setItemCannotBeAddedModalVisible} />

@@ -14,7 +14,6 @@ export interface ISettings{
     version: string;
     itemAddedPopUp: boolean;
     itemDeletedPopUp: boolean;
-    adminTools: boolean;
     interfaceTheme: ThemeTypes;
 }
 
@@ -24,7 +23,6 @@ export let DefaultSettings: ISettings = {
     version: "500",
     itemAddedPopUp: ENABLED,
     itemDeletedPopUp: ENABLED,
-    adminTools: DISABLED,
     interfaceTheme: "light"
 };
 
@@ -45,20 +43,11 @@ const SettingsProvider : FC<ISettingsProvider> = ({children}) =>{
     //const {socket} = useContext(SocketContext);
     const {user} = useContext(LoginContext);
 
-    let defSets : Partial<ISettings> = DefaultSettings;
-    if(window.localStorage.getItem("tsx-todo-settings")){
-        if(JSON.parse(window.localStorage.getItem("tsx-todo-settings") as string).version !== DefaultSettings.version){
-            defSets = DefaultSettings;
-        }else{
-            defSets = JSON.parse(window.localStorage.getItem("tsx-todo-settings") as string);
-        }
-    }
-
-    const [settings, setSettings] = useState<ISettings>(user.username === GUEST_USER.username ? defSets as ISettings : user.userSettings);
+    const [settings, setSettings] = useState<ISettings>(user.userSettings);
 
     useEffect(()=>{
         if(user !== undefined){
-            setSettings(user.username === GUEST_USER.username ? defSets as ISettings : user.userSettings);
+            setSettings(user.userSettings);
         }
     }, [user]);
 

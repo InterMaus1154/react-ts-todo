@@ -36,11 +36,7 @@ const App : FC = () =>{
   
 
 
-  const [theme, setTheme]  = useState<ThemeTypes>(
-    user.username === GUEST_USER.username ? window.localStorage.getItem("todo-tsx-preferred-theme") ? window.localStorage.getItem("todo-tsx-preferred-theme") as ThemeTypes : "light"
-    :
-    user.userSettings ? user.userSettings.interfaceTheme : "light"
-    );
+  const [theme, setTheme]  = useState<ThemeTypes>(user.userSettings ? user.userSettings.interfaceTheme : "light");
 
   //only small view
   const [isSidepanelVisible, setSidepanelVisible] = useState<boolean>(false);
@@ -50,24 +46,16 @@ const App : FC = () =>{
   };
 
   useEffect(()=>{
-    if(user.username === GUEST_USER.username){
-      window.localStorage.setItem("todo-tsx-preferred-theme", theme);
-    }
-
     setSettings({...settings, interfaceTheme: theme});
   }, [theme]);
 
-  const firstUpdate = useRef(true);
 
   useEffect(()=>{
-    if(firstUpdate.current){
-      firstUpdate.current = false;
-      return;
+    user.userSettings = settings;
+    if(user !== undefined && user !== null && user.username !== undefined && user.username !== GUEST_USER.username){
+      socket.emit("user_settings_modified", {username: user.username, userSettings: user.userSettings})
     }
 
-    user.username === GUEST_USER.username && window.localStorage.setItem("tsx-todo-settings", JSON.stringify(settings));
-    user.userSettings = settings;
-    socket.emit("user_settings_modified", {username: user.username, userSettings: user.userSettings});
   }, [settings]);
 
   const [width, setWidth] = useState<number>(window.innerWidth);

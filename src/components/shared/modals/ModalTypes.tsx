@@ -136,10 +136,3 @@ export const InvalidCredentials : FC = ()=>{
     );
 };
 
-export const ItemsSavedModal : FC = ()=>{
-    return(
-        <div className="ModalContent">
-            <h2>Your items has been successfully saved!</h2>
-        </div>
-    );
-};

@@ -65,6 +65,7 @@ const RegisterPage : FC = () =>{
 
         const user = new User(userName, [], displayName, DefaultSettings, DEFAULT_CATEGORIES);
         socket.emit("request_username_check", {user: user});
+        
 
     };
 

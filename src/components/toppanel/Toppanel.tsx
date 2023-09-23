@@ -7,14 +7,13 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { TodoContext } from "../../context/TodoContext";
 import Button from "../shared/Button";
 import Modal from "../shared/modals/Modal";
-import { AllTodoRemovedModal, FilterModal, SettingsModal, ItemsSavedModal } from "../shared/modals/ModalTypes";
+import { AllTodoRemovedModal, FilterModal, SettingsModal } from "../shared/modals/ModalTypes";
 import TodoVisibilityController from "./components/TodoVisibilityController";
 import { LoginContext } from "../../login/LoginContext";
 import { GUEST_USER } from "../../util/User";
 
 import { useNavigate } from "react-router-dom";
 
-import { SocketContext } from "../../login/SocketContext";
 
 interface IToppanel{
     isSidePanelVisible: boolean;
@@ -31,15 +30,14 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
     const [allRemovedModalVisible, setAllRemovedModalVisible] = useState<boolean>(false);
     const [filterModalVisible, setFilterModalVisible] = useState<boolean>(false);
     const [settingsModalVisible, setSettingsModalVisible] = useState<boolean>(false);
-    const [itemsSavedModalVisible, setItemsSavedModalVisible] = useState<boolean>(false);
+
 
     const allRemovedModalRef = useRef<HTMLDivElement>(document.createElement("div"));
     const filterModalRef = useRef<HTMLDivElement>(document.createElement("div"));
     const settingsModalRef = useRef<HTMLDivElement>(document.createElement("div"));
-    const itemsSavedModalRef = useRef<HTMLDivElement>(document.createElement("div"));
+
 
     const {user, setUserLoggedIn, setIsAuthorized} = useContext(LoginContext);
-    const {socket} = useContext(SocketContext);
 
     const onDeleteItems = () : void =>{
         setTodoItems([]);
@@ -61,9 +59,6 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
                 setSettingsModalVisible(false);
             }
 
-            if(itemsSavedModalRef && itemsSavedModalRef.current != null && !itemsSavedModalRef.current.contains(e.target)){
-                setItemsSavedModalVisible(false);
-            }
         };
 
         document.addEventListener("mousedown", handleClick);
@@ -72,7 +67,7 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
             document.removeEventListener("mousedown", handleClick);
         }
 
-    }, [allRemovedModalVisible, filterModalVisible, settingsModalVisible, itemsSavedModalRef]);
+    }, [allRemovedModalVisible, filterModalVisible, settingsModalVisible]);
 
     const toggleSidepanel = () : void =>{
         setSidePanelVisible(!isSidePanelVisible);
@@ -92,11 +87,6 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
         navigate("/");
     }
 
-    const saveToServer = () : void =>{
-        socket.emit("save_todo_items", {username: user.username, todoItems: user.userTodoItems});
-        setItemsSavedModalVisible(true);
-    }
-
     return(
         <div className="Toppanel">
             <Button classes={"Sidemenu-button"} text="Sidemenu" onClick={toggleSidepanel}/>
@@ -107,17 +97,15 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
             </div>
             
             <Button text={"Clear all todo"} onClick={onDeleteItems}></Button>
-            {user.username !== GUEST_USER.username && <Button text={"Save to server"} onClick={saveToServer}></Button>}
-            <TodoVisibilityController/>
+            
             <Button text={"Filter"} classes="Filter-button" onClick={openFilter}></Button>
             <Button text={"Log out"} onClick={handleLogOut}/>
-            <Button text={"Settings"} onClick={openSettingsModal} />
+            {user.username !== GUEST_USER.username && <Button text={"Settings"} onClick={openSettingsModal} />}
             
             <>
                 <Modal title="All item has been removed!" visible={allRemovedModalVisible} setVisible={setAllRemovedModalVisible} modalContent={<AllTodoRemovedModal/>} innerRef={allRemovedModalRef}/>
                 <Modal title="" visible={filterModalVisible} setVisible={setFilterModalVisible} modalContent={<FilterModal />} innerRef={filterModalRef}/>
                 <Modal title="Settings" visible={settingsModalVisible} setVisible={setSettingsModalVisible} modalContent={<SettingsModal />} innerRef={settingsModalRef}/>
-                <Modal title="Items saved" visible={itemsSavedModalVisible} setVisible={setItemsSavedModalVisible} innerRef={itemsSavedModalRef} modalContent={<ItemsSavedModal />}/>
             </>
         </div>
     )
@@ -125,3 +113,5 @@ const Toppanel : FC<IToppanel> = ({isSidePanelVisible, setSidePanelVisible}) =>{
 }
 
 export default Toppanel;
+
+//<TodoVisibilityController/>

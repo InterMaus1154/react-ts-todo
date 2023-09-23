@@ -29,16 +29,12 @@ const LoginPage : FC = () =>{
          * guest = not logged in with an account
          * */
         if(isGuest){
-            alert("This feature is temporarily disabled due to technical issues! Please log in or create an account!");
-            navigate("/");
-            /*flushSync(()=>{
+            flushSync(()=>{
                 setUser(GUEST_USER);
                 setIsAuthorized(true);
                 setUserLoggedIn(true);
+                navigate("/app");
             });
-            console.log(user);
-            socket.emit("user_is_guest", {isGuest: true});
-            navigate("/app");*/
             return;
         }
         if(username.trim().length === 0 || password.trim().length === 0){
@@ -100,17 +96,14 @@ const LoginPage : FC = () =>{
                     <h2>Log in if you already have an account</h2>
                     <Button text="Login" />
                 </form>
-                <form className="InputFields ButtonDivision" onSubmit={(e)=>{e.preventDefault()}}>
-                    <Button text="Login as Guest" onClick={(e)=>{handleLogin(e as any, true)}}/>
+                <form style={{marginTop: "1rem"}} className="InputFields" onSubmit={(e)=>{e.preventDefault()}}>
                     <Button text="Register" onClick={()=>{navigate("/register")}}/>
                 </form>
                 
                 <Modal title="Failed to login" modalContent={<InvalidCredentials />} visible={invalidLoginModalVisible} setVisible={setInvalidLoginModalVisible} innerRef={invalidLoginModalRef}/>
             </div>
-            <h3>Remember to save your items (Save to server) <br />after every changes you make!</h3>
             <h3 className="Warning-colored">Note: This app is still under development,<br /> you may encounter unknown bugs and issues!</h3>
             <h3 className="Warning-colored">Do not store sensitive or important information as it may be lost</h3>
-            <h3 className="Warning-colored">The categories are only stored locally (Server-side save is coming later)!</h3>
         </div>
     );
 }

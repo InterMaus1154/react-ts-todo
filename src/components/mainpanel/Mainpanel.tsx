@@ -25,7 +25,37 @@ const Mainpanel : FC<{isMobile: boolean}> = ({isMobile}) =>{
 
     return(
         <div className="Mainpanel">
-                {
+            {
+                todoItems.length > 0 ? 
+                    filteredItems.map((item, index) =>{
+                        return(
+                            <TodoBox key={item.id} idx={index} todoItem={item}/>
+                        )
+                    }) :
+                    <h1 className="No-todo-heading">You got nothing to do here!</h1>
+            }
+        </div>
+    )
+}
+
+export default Mainpanel;
+
+/***
+ * todoItems.length > 0 ?
+                        
+                        filteredItems.slice(counter-DEFAULT_COUNTER_DELTA,counter).map((item, idx) =>{
+                            return(
+                                <TodoBox key={item.id} idx={idx} todoItem={item}/>
+                            )
+                        }) : (
+                            <h1 className="No-todo-heading">You got nothing to do here!</h1>
+                        )
+ * 
+ * 
+ */
+
+                        /*
+                        {
                     todoItems.length > 0 ?
                     <>
                         {
@@ -49,23 +79,5 @@ const Mainpanel : FC<{isMobile: boolean}> = ({isMobile}) =>{
                     <>
                         <h1 className="No-todo-heading">You got nothing to do here!</h1>
                     </>
-                }
-        </div>
-    )
-}
-
-export default Mainpanel;
-
-/***
- * todoItems.length > 0 ?
-                        
-                        filteredItems.slice(counter-DEFAULT_COUNTER_DELTA,counter).map((item, idx) =>{
-                            return(
-                                <TodoBox key={item.id} idx={idx} todoItem={item}/>
-                            )
-                        }) : (
-                            <h1 className="No-todo-heading">You got nothing to do here!</h1>
-                        )
- * 
- * 
- */
+                }*
+                        */

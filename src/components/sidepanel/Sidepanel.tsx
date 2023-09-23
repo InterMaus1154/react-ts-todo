@@ -25,7 +25,7 @@ const Sidepanel : FC<ISidePanel> = ({isVisible, setVisible}) =>{
 
     return(
         <div className={isVisible ? "Sidepanel Sidepanel-visible" : "Sidepanel"}>
-            <h1 style={{textAlign: "center"}}className="Page-title">Todo app
+            <h1 style={{textAlign: "center"}}className="Page-title">Verina Todo App
                 <button className="Close-sidepanel-button" onClick={()=>{setVisible(false);}}>Close</button>
                 <p style={{marginBottom: "-10px"}}>Welcome {user.userDisplayName}</p>
             </h1>
