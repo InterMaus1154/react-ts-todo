@@ -1,4 +1,4 @@
-import {FC, useContext, useEffect, useState, useRef} from 'react';
+import {FC, useContext, useEffect, useState, useRef, MouseEventHandler} from 'react';
 import Button from '../components/shared/Button';
 import { LoginContext } from './LoginContext';
 import User, {GUEST_USER} from '../util/User';
@@ -81,6 +81,14 @@ const LoginPage : FC = () =>{
         });
     }, []);
 
+    const handleGuest : MouseEventHandler<HTMLButtonElement> = (e) : void  =>{
+        e.preventDefault();
+        setUser(GUEST_USER);
+        setIsAuthorized (true);
+        setUserLoggedIn(true);
+        navigate("/app");
+    };
+
     return(
         <div className="Gate-panel">
             <h1>Welcome to <br></br> Verina Todo App {new Date().getFullYear()}</h1>
@@ -96,14 +104,17 @@ const LoginPage : FC = () =>{
                     <h2>Log in if you already have an account</h2>
                     <Button text="Login" />
                 </form>
-                <form style={{marginTop: "1rem"}} className="InputFields" onSubmit={(e)=>{e.preventDefault()}}>
+                <form style={{marginTop: ".5rem"}} className="InputFields" onSubmit={(e)=>{e.preventDefault()}}>
                     <Button text="Register" onClick={()=>{navigate("/register")}}/>
                 </form>
-                
+                <form style={{marginTop: ".5rem"}} className="InputFields">
+                    <Button text="Login as Guest" onClick={handleGuest}/>
+                </form>
+                <div className="Info">Version stable <br></br>
+                Latest update: 24/09/2023
+                </div>
                 <Modal title="Failed to login" modalContent={<InvalidCredentials />} visible={invalidLoginModalVisible} setVisible={setInvalidLoginModalVisible} innerRef={invalidLoginModalRef}/>
             </div>
-            <h3 className="Warning-colored">Note: This app is still under development,<br /> you may encounter unknown bugs and issues!</h3>
-            <h3 className="Warning-colored">Do not store sensitive or important information as it may be lost</h3>
         </div>
     );
 }

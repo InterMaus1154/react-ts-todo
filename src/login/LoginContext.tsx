@@ -1,7 +1,7 @@
 import {FC, createContext, useState, useEffect, useContext} from 'react';
-import User, { IUser } from '../util/User';
+import User, { GUEST_USER, IUser } from '../util/User';
 import { ITodo } from '../util/Todo';
-import { DefaultSettings, ISettings } from '../context/SettingsContext';
+import { ISettings, DefaultSettings } from '../util/Settings';
 import { SocketContext } from './SocketContext';
 
 interface ILoginContext{
@@ -32,8 +32,7 @@ const LoginProvider : FC<ILoginProvider> = ({children}) =>{
 
     useEffect(()=>{
         user.userTodoItems = userItems;
-        if(user !== undefined){
-            console.log(userItems);
+        if(user !== undefined && user.username !== GUEST_USER.username){
             socket.emit("save_todo_items", {username: user.username, todoItems: user.userTodoItems});
         }
         

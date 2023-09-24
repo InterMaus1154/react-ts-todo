@@ -4,7 +4,7 @@ import User from '../util/User';
 import { SocketContext } from './SocketContext';
 import Modal from '../components/shared/modals/Modal';
 import { UserRegisteredModal, UserExistModal, FillOutFieldsModal } from '../components/shared/modals/ModalTypes';
-import { DefaultSettings } from '../context/SettingsContext';
+import { DefaultSettings } from '../util/Settings';
 import { DEFAULT_CATEGORIES } from '../util/Category';
 
 import { useNavigate } from 'react-router-dom';

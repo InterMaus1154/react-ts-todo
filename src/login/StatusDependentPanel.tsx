@@ -1,6 +1,7 @@
 import {FC, useContext, useEffect} from 'react';
 
 import { Routes, Route } from 'react-router-dom';
+import SettingsProvider from '../context/SettingsContext';
 
 import App from "../App";
 import { SocketContext } from './SocketContext';
@@ -30,7 +31,7 @@ const StatusDependentPanel : FC = ()=>{
             <Routes>
                 <Route path="/" element={<div className="Gate-wrapper"><LoginPage/></div>} />
                 <Route path="/register" element={<div className="Gate-wrapper"><RegisterPage /></div>} />
-                <Route path="/app" element={<div className="App-wrapper"><App /></div>} />
+                <Route path="/app" element={<div className="App-wrapper"><SettingsProvider><App /></SettingsProvider></div>} />
             </Routes>
             
         }

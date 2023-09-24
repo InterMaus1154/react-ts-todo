@@ -4,10 +4,11 @@
 }
 
 .Gate-panel{
-    background-color: #c8c8c8;
+    background-color: #dbdbdb;
     padding: 32px;
     border-radius: 8px;
     margin: 12px;
+    box-shadow: 2px 2px 5px 1px #a0a0a0;
 }
 
 .InputFields.ButtonDivision{
@@ -70,4 +71,11 @@
         rotate: 100%;
         transform: rotate(360deg);
     }
+}
+
+
+.Info{
+    position: fixed;
+    bottom: 0;
+    font-weight: bold;
 }

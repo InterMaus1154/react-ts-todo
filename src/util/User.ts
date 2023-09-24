@@ -1,7 +1,8 @@
 
 import { ITodo } from "./Todo";
-import {ISettings, DefaultSettings} from "../context/SettingsContext";
-import {ThemeTypes} from "../context/ThemeContext";
+
+import { ISettings, DefaultSettings } from "./Settings";
+
 import { ICategory, DEFAULT_CATEGORIES } from "./Category";
 
 export interface IUser{

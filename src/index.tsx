@@ -17,9 +17,7 @@ root.render(
     <BrowserRouter>
       <SocketProvider>
       <LoginProvider >
-        <SettingsProvider>
           <StatusDependentPanel />
-        </SettingsProvider>
         </LoginProvider >
       </SocketProvider>
     </BrowserRouter>
