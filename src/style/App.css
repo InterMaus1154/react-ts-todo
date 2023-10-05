@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Young+Serif&display=swap');
 *, *::before, *::after{
   box-sizing: border-box;
 }
-
+h1, h2, h3, h5{
+  font-family: Young Serif;
+}
+p, span, div{
+  font-family: Poppins;
+}
 html,body, #root, .App{
   height: 100vh;
 }
@@ -21,12 +27,13 @@ body{
 }
 
 .Button{
-  font-size: 24px;
-  font-family: Arial, Helvetica, sans-serif !important;
+  margin-inline: auto;
+  width: 100%;
+  font-size: 18px;
+  float: left;
+  font-family: Poppins;
+  border-radius: 12px;
   cursor: pointer;
-  margin: 0px 2px;
-  display: inline;
-  text-transform: lowercase;
 }
 
 .Button:active{
@@ -44,16 +51,17 @@ body{
 }
 
 .InputFields{
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  font-size: 1.25em;
-  gap: .75em;
+  flex-flow: column;
+  width: 100%;
 
 }
 
 .InputFields input{
-  margin-top: .5em;
-  width: 75%;
+  width: 100%;
+  padding: 5px;
+  border: none;
 }
 
 .InputFields label, .InputFields input,  .InputFields select,  .InputFields textarea{

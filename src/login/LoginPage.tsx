@@ -78,8 +78,7 @@ const LoginPage : FC = () =>{
 
     return(
         <div className="Gate-panel">
-            <h1>Welcome to <br></br> Verina Todo App {new Date().getFullYear()}</h1>
-        
+            <h1>Verina Todo App {new Date().getFullYear()}</h1>
             <div className={"Login-page"}>
                 <form className="InputFields" onSubmit={handleLogin}>
                     <label>Username

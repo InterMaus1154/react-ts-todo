@@ -1,38 +1,28 @@
 
 #root{
-    font-family: Arial, Helvetica, sans-serif;
     background-color: #F5F5F5;
-    background-image: url('https://images.unsplash.com/photo-1691958671724-966fd5a84cc2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1335&q=80');
-    background-size: cover;
 }
 
 .Gate-panel{
-    max-width: 400px;
-    background-color: #c8c8c8a0;
-    backdrop-filter: blur(4px) brightness(0.9) opacity(0.1);
-    border-bottom: 2px solid black;
-    padding: 30px;
+    background-color: #F3F3F3;
+    padding: 32px;
+    border-radius: 8px;
     margin: 12px;
-    border-radius: 10px;
+    /* box-shadow: 2px 2px 5px 1px #a0a0a0; */
+    box-shadow: 2px 2px 36px 0px rgb(205, 255, 80), -5px -5px 30px rgb(255, 107, 107);
 }
-.Gate-panel > h1{
+.Gate-panel h1{
+    width: auto;
     text-align: center;
 }
-.Login-page h2{
-font-size: small
-}
-#loginbtn{
-    margin: 0px 20px;
+.Login-page{
+    width: 100%;
+    margin-inline: auto;
 }
 .InputFields.ButtonDivision{
     flex-direction: row;
     gap: 0;
     margin-top: 8px;
-}
-.InputFields label > input{
-    width: 100%;
-    border: none;
-    padding: 10px 5px;
 }
 
 .InputFields.ButtonDivision button{
@@ -56,4 +46,44 @@ font-size: small
 
 .Warning-colored{
     color: red;
+}
+
+.Loading-box{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Loading-spin{
+    width: 50px;
+    height: 50px;
+    border: 5px solid transparent;
+    background: linear-gradient(#F3F3F3, #F3F3F3) padding-box,
+                linear-gradient(#000000, #F3F3F3) border-box;
+    border-radius: 50%;
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spin{
+    from{
+        rotate: 0;
+        transform: rotate(0deg);
+    }
+
+    to{
+        rotate: 100%;
+        transform: rotate(360deg);
+    }
+}
+
+
+.Info{
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
 }
